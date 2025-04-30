@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Noor & Nest</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-5">
+    <div class="container">
+        <h1 class="mb-4">🧾 Order Tracker Dashboard</h1>
+
+        <form method="POST" action="/add">
+            <div class="mb-3">
+                <label>Customer Name</label>
+                <input type="text" name="customer" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Order ID</label>
+                <input type="text" name="order_id" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Product Name</label>
+                <input type="text" name="product" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Status</label>
+                <select name="status" class="form-control" required>
+                    <option>Pending</option>
+                    <option>Processing</option>
+                    <option>Shipped</option>
+                    <option>Delivered</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Order</button>
+        </form>
+
+        <hr class="my-4">
+        <h2>📋 Current Orders (This session only)</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_id }}</td>
+                    <td>{{ order.customer }}</td>
+                    <td>{{ order.product }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>
+                        <a href="/edit/{{ order.id }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="/delete/{{ order.id }}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+</body>
+</html>
